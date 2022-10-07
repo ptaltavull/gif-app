@@ -1,11 +1,22 @@
 <div class="bg-dark border-right p-3" id="sidebar">
     <div>
-        <h3 class="text-light">
+        <h3 routerLink="" class="logo text-light">
             Gif-app
         </h3>
         <hr class="text-white" />
 
         <app-search></app-search>
+
+        <hr class="text-white" />
+
+        <ul class="list-group">
+            <button routerLink="favoritos" class="list-group-item list-group-item-action">
+                <i class="fa-solid fa-star"></i> Favoritos
+            </button>
+            <button routerLink="login" class="list-group-item list-group-item-action">
+                <i class="fa fa-user" aria-hidden="true"></i> User
+            </button>
+        </ul>
 
         <hr class="text-white" />
 
@@ -15,5 +26,6 @@
                 {{item | titlecase}}
             </a>
         </div>
+
     </div>
 </div>
