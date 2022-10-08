@@ -4,7 +4,8 @@ import { GifsPageComponent } from './gifs/gifs-page/gifs-page.component';
 import { FavouritePageComponent } from './gifs/favourite-page/favourite-page.component';
 import { LoginPageComponent } from './auth/login-page/login-page.component';
 import { ForgotPasswordPageComponent } from './auth/forgot-password-page/forgot-password-page.component';
-import { RegisterPageComponent } from './register-page/register-page.component';
+import { RegisterPageComponent } from './auth/register-page/register-page.component';
+import { SendEmailComponent } from './auth/send-email/send-email.component';
 
 const routes: Routes = [
     {
@@ -27,6 +28,10 @@ const routes: Routes = [
     {
       path: 'registrar',
       component: RegisterPageComponent
+    },
+    {
+      path: 'verificar',
+      component: SendEmailComponent
     },
     {
         path: '**',

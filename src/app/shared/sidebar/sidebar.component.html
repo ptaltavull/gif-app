@@ -9,14 +9,22 @@
 
         <hr class="text-white" />
 
-        <ul class="list-group">
-            <button routerLink="/favoritos" class="list-group-item list-group-item-action">
+        <ul class="list-group" *ngIf="user$ | async as user; else login">
+            <button *ngIf="user" routerLink="/favoritos" class="list-group-item list-group-item-action">
                 <i class="fa-solid fa-star"></i> Favoritos
             </button>
-            <button routerLink="/login" class="list-group-item list-group-item-action">
-                <i class="fa fa-user" aria-hidden="true"></i> User
+            <button *ngIf="user" (click)="onLogout()" class="list-group-item list-group-item-action">
+                <i class="fa fa-user" aria-hidden="true"></i> Logout
             </button>
         </ul>
+
+        <ng-template #login>
+            <ul class="list-group">
+                <button routerLink="/login" class="list-group-item list-group-item-action">
+                    <i class="fa fa-user" aria-hidden="true"></i> Login
+                </button>
+            </ul>
+        </ng-template>
 
         <hr class="text-white" />
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
-import { AuthService } from '../auth/services/auth.service';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-page',
@@ -14,14 +15,24 @@ export class RegisterPageComponent implements OnInit {
     password: new FormControl('')
   });
 
-  constructor(private authSvc:AuthService) {}
+  constructor(private authSvc:AuthService, private router: Router) {}
 
   ngOnInit(): void {
   }
 
-  onRegister(){
+  async onRegister(){
     const {email, password} = this.registerForm.value;
-    this.authSvc.register(email!, password!);
+    try {
+      const user = await this.authSvc.register(email!, password!);
+      if(user){
+        //redirect to login
+        this.router.navigate(['/verificar']);
+      }
+    }
+    catch(error){
+console.log(error);
+    }
+    
   }
 
 }

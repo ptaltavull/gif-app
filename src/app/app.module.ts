@@ -9,7 +9,7 @@ import { GifsModule } from './gifs/gifs.module';
 import { LoginPageComponent } from './auth/login-page/login-page.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RegisterPageComponent } from './register-page/register-page.component';
+import { RegisterPageComponent } from './auth/register-page/register-page.component';
 import { ForgotPasswordPageComponent } from './auth/forgot-password-page/forgot-password-page.component';
 
 //firebase
@@ -20,13 +20,15 @@ import { provideDatabase,getDatabase } from '@angular/fire/database';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { AuthService } from './auth/services/auth.service';
 import { AngularFireModule } from '@angular/fire/compat';
+import { SendEmailComponent } from './auth/send-email/send-email.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginPageComponent,
     RegisterPageComponent,
-    ForgotPasswordPageComponent
+    ForgotPasswordPageComponent,
+    SendEmailComponent
   ],
   imports: [
     BrowserModule,

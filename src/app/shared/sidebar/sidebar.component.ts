@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { GifsService } from '../../gifs/services/gifs.service';
 import { AuthService } from '../../auth/services/auth.service';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-sidebar',
@@ -8,9 +10,11 @@ import { AuthService } from '../../auth/services/auth.service';
   styleUrls: ['./sidebar.component.scss'],
   providers: [AuthService]
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent {
 
-  constructor(private gifsService: GifsService, private authSvc: AuthService) { }
+  public user$: Observable<any> = this.authSvc.afAuth.user;
+
+  constructor(private gifsService: GifsService, private authSvc: AuthService, private router: Router) { }
 
   get history() {
     return this.gifsService.history;
@@ -20,12 +24,13 @@ export class SidebarComponent implements OnInit {
     this.gifsService.searchGifs(searchValue);
   }
 
-  async ngOnInit() {
-    console.log('Navbar');
-    const user = await this.authSvc.getCurrentUser();
-    if(user){
-      console.log('User -> ', user);
+  async onLogout(){
+    try {
+      await this.authSvc.logout();
+      this.router.navigate(['/login']);
     }
+    catch(error){
+      console.log(error);
+    } 
   }
-
 }
