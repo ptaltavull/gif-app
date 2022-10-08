@@ -2,7 +2,9 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { GifsPageComponent } from './gifs/gifs-page/gifs-page.component';
 import { FavouritePageComponent } from './gifs/favourite-page/favourite-page.component';
-import { LoginPageComponent } from './login-page/login-page.component';
+import { LoginPageComponent } from './auth/login-page/login-page.component';
+import { ForgotPasswordPageComponent } from './auth/forgot-password-page/forgot-password-page.component';
+import { RegisterPageComponent } from './register-page/register-page.component';
 
 const routes: Routes = [
     {
@@ -17,6 +19,14 @@ const routes: Routes = [
     {
         path: 'login',
         component: LoginPageComponent
+    },
+    {
+      path: 'recuperar',
+      component: ForgotPasswordPageComponent
+    },
+    {
+      path: 'registrar',
+      component: RegisterPageComponent
     },
     {
         path: '**',

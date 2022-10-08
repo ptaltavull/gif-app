@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "gif-app-64725": {
+      "hosting": {
+        "gif-app": [
+          "gif-app-64725"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "gif-app-64725"
+  }
+}

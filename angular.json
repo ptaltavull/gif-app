@@ -100,6 +100,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "gif-app:build:production",
+            "firebaseProject": "gif-app-64725",
+            "firebaseHostingSite": "gif-app-64725"
+          }
         }
       }
     }
