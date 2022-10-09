@@ -1,7 +1,11 @@
 <div class="row">
     <div *ngFor="let gif of results" class="col-md-4 col-sm-6 animate__animated animate__fadeIn">
-        <div class="card">
+        <div class="card mt-3">
             <img [src]="gif.images.downsized_medium.url" [alt]="gif.title" class="card-img-top">
+            <div class="icons">
+                <i class="fa fa-download download-icon" aria-hidden="true"></i>
+                <i class="fa-regular fa-heart fav-icon" *ngIf="user$ | async as user"></i>
+            </div>
         </div>
     </div>
 </div>
