@@ -14,9 +14,19 @@ export class ResultsComponent {
   public user$: Observable<any> = this.authSvc.afAuth.user;
 
   get results() {
+    console.log("result");
     return this.gifsService.results;
   }
 
+  get loaded() {
+    return this.gifsService.loaded;
+  }
+
   constructor(private gifsService: GifsService, private authSvc: AuthService) { }
+
+  public onImageLoad( event: Event ){
+    const target = event.target as HTMLImageElement;
+    target.parentElement!.style.display = "flex";
+  }
 
 }

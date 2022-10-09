@@ -11,6 +11,8 @@ export class GifsService {
   private urlService: string = 'https://api.giphy.com/v1/gifs';
   private _history: string[] = [];
 
+  public loaded: boolean = false;
+
   public results: Gif[] = [];
 
   get history() {
@@ -20,11 +22,18 @@ export class GifsService {
   constructor(private http: HttpClient) {
 
     this._history = JSON.parse(localStorage.getItem('history')!) || [];
-    this.results = JSON.parse(localStorage.getItem('results')!) || [];
+    if (JSON.parse(localStorage.getItem('results')!)) {
+      this.results = JSON.parse(localStorage.getItem('results')!);
+      this.loaded = true;
+    } else {
+      this.results = [];
+    }
 
   }
 
   searchGifs(query: string = '') {
+
+    this.loaded = false;
 
     query = query.trim().toLowerCase();
 
@@ -38,14 +47,14 @@ export class GifsService {
 
     const params = new HttpParams()
       .set('api_key', this.apiKey)
-      .set('limit', '100')
+      .set('limit', '50')
       .set('q', query);
 
-    this.http.get<SearchGifsResponse>(`${this.urlService}/search`,{params})
+    this.http.get<SearchGifsResponse>(`${this.urlService}/search`, { params })
       .subscribe((response) => {
-        console.log(response.data);
         this.results = response.data;
         localStorage.setItem('results', JSON.stringify(this.results));
+        setTimeout(() => this.loaded = true, 2000);
       })
 
   }

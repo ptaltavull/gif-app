@@ -1,11 +1,12 @@
-<div class="row">
-    <div *ngFor="let gif of results" class="col-md-4 col-sm-6 animate__animated animate__fadeIn">
-        <div class="card mt-3">
-            <img [src]="gif.images.downsized_medium.url" [alt]="gif.title" class="card-img-top">
-            <div class="icons">
-                <i class="fa fa-download download-icon" aria-hidden="true"></i>
-                <i class="fa-regular fa-heart fav-icon" *ngIf="user$ | async as user"></i>
-            </div>
+<ul>
+    <li *ngFor="let gif of results" class="card item">
+        <img (load)="onImageLoad($event)" [src]="gif.images.fixed_height.url" [alt]="gif.title" class="animate__animated animate__fadeIn">
+        <div class="icons">
+            <i class="fa fa-download download-icon" aria-hidden="true"></i>
+            <i class="fa-regular fa-heart fav-icon" *ngIf="user$ | async as user"></i>
         </div>
-    </div>
+    </li>
+</ul>
+<div class="loading" *ngIf="!loaded">
+    <img class="loading-img" src="../../../assets/loading.gif" alt="loading">
 </div>
