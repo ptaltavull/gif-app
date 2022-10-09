@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { GifsPageComponent } from './gifs-page/gifs-page.component';
 import { ResultsComponent } from './results/results.component';
 import { FavouritePageComponent } from './favourite-page/favourite-page.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -17,7 +18,8 @@ import { FavouritePageComponent } from './favourite-page/favourite-page.componen
     FavouritePageComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    SharedModule
   ]
 })
 export class GifsModule { }

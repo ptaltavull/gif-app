@@ -21,6 +21,7 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
 import { AuthService } from './auth/services/auth.service';
 import { AngularFireModule } from '@angular/fire/compat';
 import { SendEmailComponent } from './auth/send-email/send-email.component';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { SendEmailComponent } from './auth/send-email/send-email.component';
     provideDatabase(() => getDatabase()),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireModule,
+    provideFirestore(() => getFirestore()),
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

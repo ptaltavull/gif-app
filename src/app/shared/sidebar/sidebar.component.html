@@ -1,7 +1,7 @@
 <div class="bg-dark border-right p-3" id="sidebar">
     <div class="position-fixed">
         <h3 routerLink="" class="logo text-light">
-            Gif-app
+            Gif Seeker
         </h3>
         <hr class="text-white" />
 
@@ -11,7 +11,7 @@
 
         <ul class="list-group" *ngIf="user$ | async as user; else login">
             <button *ngIf="user" routerLink="/favoritos" class="list-group-item list-group-item-action">
-                <i class="fa-solid fa-star"></i> Favoritos
+                <i class="fa-solid fa-star"></i> Favourites
             </button>
             <button *ngIf="user" (click)="onLogout()" class="list-group-item list-group-item-action">
                 <i class="fa fa-user" aria-hidden="true"></i> Logout
@@ -28,6 +28,7 @@
 
         <hr class="text-white" />
 
+        <h4 class="text-light">History</h4>
         <div class="list-group list-reset">
             <a *ngFor="let item of history" (click)="search(item)" href="#"
                 class="list-group-item list-group-item-action">

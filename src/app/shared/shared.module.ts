@@ -3,16 +3,19 @@ import { CommonModule } from '@angular/common';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { SearchComponent } from '../gifs/search/search.component';
 import { RouterModule } from '@angular/router';
+import { LoadingComponent } from './loading/loading.component';
 
 
 
 @NgModule({
   declarations: [
     SidebarComponent,
-    SearchComponent
+    SearchComponent,
+    LoadingComponent
   ],
   exports: [
-    SidebarComponent
+    SidebarComponent,
+    LoadingComponent
   ],
   imports: [
     CommonModule,

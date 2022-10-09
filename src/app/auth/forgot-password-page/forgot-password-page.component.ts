@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -9,14 +9,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./forgot-password-page.component.scss'],
   providers: [AuthService],
 })
-export class ForgotPasswordPageComponent implements OnInit {
+export class ForgotPasswordPageComponent {
 
   userEmail = new FormControl('');
 
   constructor(private authSvc: AuthService, private router: Router) { }
-
-  ngOnInit(): void {
-  }
 
   async onReset() {
     try {

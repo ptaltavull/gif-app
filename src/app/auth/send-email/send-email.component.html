@@ -1,22 +1,23 @@
 <div class="card mt-5" *ngIf="user$ | async as user; else loading">
     <div class="card-body">
-        <h3 class="card-title text-center">Gracias por registrarte!</h3>
+        <h3 class="card-title text-center">Confirm your email address</h3>
         <div class="form-group mt-2">
             <p class="text-center">
-                Te hemos enviado un email de confirmación <strong>{{ user?.email }}</strong>.
+                We sent an email to <strong>{{ user?.email }}</strong>. Please check your Inbox and find the
+                confirmation email.
             </p>
             <p class="text-center">
-                Por favor haz click en el link para verificar tu email.
+                If you cannot find the email within your Inbox, please check your Spam folder.
             </p>
         </div>
         <div class="form-group text-center mt-3">
             <button class="btn btn-primary" (click)="onSendEmail()">
-                Reenviar
+                Re-send confirmation email
             </button>
         </div>
     </div>
 </div>
 
 <ng-template #loading>
-    Cargando...
+    <app-loading></app-loading>
 </ng-template>

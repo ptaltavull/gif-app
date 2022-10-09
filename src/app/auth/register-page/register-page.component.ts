@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {FormGroup, FormControl} from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 
@@ -8,31 +8,27 @@ import { Router } from '@angular/router';
   templateUrl: './register-page.component.html',
   styleUrls: ['./register-page.component.scss']
 })
-export class RegisterPageComponent implements OnInit {
+export class RegisterPageComponent {
 
   registerForm = new FormGroup({
     email: new FormControl(''),
     password: new FormControl('')
   });
 
-  constructor(private authSvc:AuthService, private router: Router) {}
+  constructor(private authSvc: AuthService, private router: Router) { }
 
-  ngOnInit(): void {
-  }
-
-  async onRegister(){
-    const {email, password} = this.registerForm.value;
+  async onRegister() {
+    const { email, password } = this.registerForm.value;
     try {
       const user = await this.authSvc.register(email!, password!);
-      if(user){
-        //redirect to login
+      if (user) {
         this.router.navigate(['/verificar']);
       }
     }
-    catch(error){
-console.log(error);
+    catch (error) {
+      console.log(error);
     }
-    
+
   }
 
 }

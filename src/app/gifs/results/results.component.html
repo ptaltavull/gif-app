@@ -3,10 +3,10 @@
         <img (load)="onImageLoad($event)" [src]="gif.images.fixed_height.url" [alt]="gif.title" class="animate__animated animate__fadeIn">
         <div class="icons">
             <i class="fa fa-download download-icon" aria-hidden="true"></i>
-            <i class="fa-regular fa-heart fav-icon" *ngIf="user$ | async as user"></i>
+            <i class="fa-regular fa-heart fav-icon" (click)="saveFav($event)" *ngIf="user$ | async as user"></i>
         </div>
     </li>
 </ul>
-<div class="loading" *ngIf="!loaded">
-    <img class="loading-img" src="../../../assets/loading.gif" alt="loading">
+<div *ngIf="!loaded">
+    <app-loading></app-loading>
 </div>

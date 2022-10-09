@@ -1,14 +1,26 @@
 import { Injectable } from '@angular/core';
-import { User, sendEmailVerification } from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { first } from 'rxjs';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
 
 @Injectable()
 export class AuthService {
 
   constructor(public afAuth: AngularFireAuth) { }
 
-  async resetPassword(email: string):Promise<void> {
+  async loginGoogle() {
+    try {
+      return this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+    }
+    catch (error) {
+      console.log(error);
+      return;
+    }
+  }
+
+  async resetPassword(email: string): Promise<void> {
     try {
       return this.afAuth.sendPasswordResetEmail(email);
     }
@@ -17,7 +29,7 @@ export class AuthService {
     }
   }
 
-  async sendVerificationEmail():Promise<void>{
+  async sendVerificationEmail(): Promise<void> {
     return (await this.afAuth.currentUser)!.sendEmailVerification();
   }
 
