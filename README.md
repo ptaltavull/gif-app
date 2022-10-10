@@ -4,6 +4,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Gif Seeker is a web application that allows you to search, download and save your favourite gifs from the Giphy API.
 
+![]https://github.com/ptaltavull/gif-app/blob/master/demo-gif.gif
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
