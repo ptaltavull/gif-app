@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { GifsService } from '../services/gifs.service';
 import { FavouritesService } from '../services/favourites.service';
-import { DownloadGifService } from '../services/download-gif.service';
 import { Gif } from '../interfaces/gifs.interface';
 
 @Component({
@@ -28,7 +27,7 @@ export class ResultsComponent implements OnInit {
     return this.gifsService.loaded;
   }
 
-  constructor(private gifsService: GifsService, private authSvc: AuthService, private favouriteService: FavouritesService, private downloadService: DownloadGifService) { }
+  constructor(private gifsService: GifsService, private authSvc: AuthService, private favouriteService: FavouritesService) { }
 
   ngOnInit(): void {
     this.user$.subscribe(u => {

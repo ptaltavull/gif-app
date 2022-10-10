@@ -44,7 +44,8 @@ export class GifComponent implements OnDestroy {
 
   async downloadGif() {
     let a = document.createElement('a');
-    let response = await fetch(this.gif?.url || '');
+    //console.log(this.gif?.url.replace(/^https?\:\/\//i, "//"));
+    let response = await fetch(this.gif?.url/* .replace(/^https?\:\/\//i, "//") */ || '');
     let file = await response.blob();
     a.download = 'myGif';
     a.href = window.URL.createObjectURL(file);
