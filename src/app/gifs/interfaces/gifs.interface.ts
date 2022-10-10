@@ -1,12 +1,3 @@
-// To parse this data:
-//
-//   import { Convert, SearchGifsResponse } from "./file";
-//
-//   const searchGifsResponse = Convert.toSearchGifsResponse(json);
-//
-// These functions will throw an error if the JSON doesn't
-// match the expected interface, even if the JSON is valid.
-
 export interface SearchGifsResponse {
     data: Gif[];
     pagination: Pagination;

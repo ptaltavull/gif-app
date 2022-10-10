@@ -22,19 +22,10 @@ export class FavouritePageComponent implements OnInit {
   }
 
   get favourites() {
+
     return this.favouriteService.favourites;
   }
-
-  /*  async deleteFavourite(favourite: any) {
-     const response = await this.favouriteService.deleteFavourite(favourite);
-     console.log(response);
-   } */
-
-  /* public deleteFav(gif: any) {
-    this.user$.subscribe(async u => {
-      this.favouriteService.deleteFavourite(gif.target.parentNode.parentNode.querySelector("img").src, u.email);
-    });
-  } */
+  
   public saveFav(favGif: any) {
     this.user$.subscribe(u => {
       const favourite = {
