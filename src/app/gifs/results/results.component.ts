@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { GifsService } from '../services/gifs.service';
 import { FavouritesService } from '../services/favourites.service';
+import { DownloadGifService } from '../services/download-gif.service';
 
 @Component({
   selector: 'app-results',
@@ -11,6 +12,8 @@ import { FavouritesService } from '../services/favourites.service';
   providers: [AuthService]
 })
 export class ResultsComponent {
+
+  
 
   public user$: Observable<any> = this.authSvc.afAuth.user;
 
@@ -22,7 +25,7 @@ export class ResultsComponent {
     return this.gifsService.loaded;
   }
 
-  constructor(private gifsService: GifsService, private authSvc: AuthService, private favouriteService: FavouritesService) { }
+  constructor(private gifsService: GifsService, private authSvc: AuthService, private favouriteService: FavouritesService, private downloadService: DownloadGifService) { }
 
   public onImageLoad(event: Event) {
     const target = event.target as HTMLImageElement;
@@ -38,5 +41,15 @@ export class ResultsComponent {
       const response = await this.favouriteService.addFavourite(favourite);
       console.log(response);
     });
+  }
+
+  async downloadGif(gif: any) {
+    let a = document.createElement('a');
+    let response = await fetch(gif.target.parentNode.parentNode.querySelector("img").src);
+    let file = await response.blob();
+    a.download = 'myGif';
+    a.href = window.URL.createObjectURL(file);
+    a.dataset['downloadurl'] = ['application/octet-stream', a.download, a.href].join(':');
+    a.click();
   }
 }

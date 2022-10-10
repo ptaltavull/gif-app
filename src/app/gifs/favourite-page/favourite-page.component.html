@@ -1,1 +1,14 @@
-<p>favourite-page works!</p>
+<ul>
+    <li *ngFor="let gif of favourites" class="card item">
+        <!-- <img (load)="onImageLoad($event)" [src]="gif.images.fixed_height.url" [alt]="gif.title" class="animate__animated animate__fadeIn">
+    <div class="icons">
+        <i class="fa fa-download download-icon" aria-hidden="true"></i>
+        <i class="fa-regular fa-heart fav-icon" (click)="saveFav($event)" *ngIf="user$ | async as user"></i>
+    </div> -->
+        <img [src]="gif.gif" class="animate__animated animate__fadeIn">
+        <div class="icons">
+            <i class="fa fa-download download-icon" aria-hidden="true"></i>
+            <i class="fa-regular fa-heart fav-icon"></i>
+        </div>
+    </li>
+</ul>
