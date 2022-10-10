@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { SearchGifsResponse, Gif } from '../interfaces/gifs.interface';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +32,7 @@ export class GifsService {
 
   }
 
-  searchGifs(query: string = '') {
+  public searchGifs(query: string = '') {
 
     this.loaded = false;
 
@@ -47,16 +48,21 @@ export class GifsService {
 
     const params = new HttpParams()
       .set('api_key', this.apiKey)
-      .set('limit', '50')
+      .set('limit', '20')
       .set('q', query);
 
     this.http.get<SearchGifsResponse>(`${this.urlService}/search`, { params })
       .subscribe((response) => {
         this.results = response.data;
         localStorage.setItem('results', JSON.stringify(this.results));
-        setTimeout(() => this.loaded = true, 2000);
+        setTimeout(() => this.loaded = true, 3000);
       })
+  }
 
+  public getGifById(id: string):Observable<any> {
+    const params = new HttpParams()
+      .set('api_key', this.apiKey);
+    return this.http.get<any>(`${this.urlService}/${id}`, { params });
   }
 
 }

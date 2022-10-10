@@ -1,5 +1,5 @@
 <ul>
-    <li *ngFor="let gif of favourites" class="card item">
-        <app-gif [gif]="gif"></app-gif>
+    <li *ngFor="let gif of favouriteGifs" class="card item">
+        <app-gif [gif]="gif" [favourite]="true"></app-gif>
     </li>
 </ul>

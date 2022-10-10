@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { lastValueFrom, Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { FavouritesService } from '../services/favourites.service';
+import { FavouriteGif } from '../interfaces/favourite-gif';
+import { GifsService } from '../services/gifs.service';
+import { Gif } from '../interfaces/gifs.interface';
 
 @Component({
   selector: 'app-favourite-page',
@@ -13,26 +16,27 @@ export class FavouritePageComponent implements OnInit {
 
   public user$: Observable<any> = this.authSvc.afAuth.user;
 
-  constructor(private authSvc: AuthService, private favouriteService: FavouritesService) { }
+  constructor(private authSvc: AuthService, private favouriteService: FavouritesService, private gifsService: GifsService) { }
 
   ngOnInit(): void {
-    this.user$.subscribe(u => {
-      this.favouriteService.getFavourites(u.email);
+    this.user$.subscribe(async u => {
+      if (u != null) {
+        await this.favouriteService.getFavourites(u.email);
+        this.favouriteService.getFavouriteGifs();
+      }
+
     })
   }
 
-  get favourites() {
-
+  get favourites(): FavouriteGif[] {
     return this.favouriteService.favourites;
   }
-  
-  public saveFav(favGif: any) {
-    this.user$.subscribe(u => {
-      const favourite = {
-        gif: favGif.target.parentNode.parentNode.querySelector("img").src,
-        user: u.email
-      }
-      this.favouriteService.saveFavourite(favourite);
-    });
+
+  get favouriteGifs(): Gif[] {
+    return this.favouriteService.favouriteGifs;
+  }
+
+  public isFavourite(gif: Gif) {
+    return this.favouriteService.isFavourite(gif.id);
   }
 }

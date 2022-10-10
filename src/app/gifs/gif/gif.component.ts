@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { Gif } from '../interfaces/gifs.interface';
 import { FavouritesService } from '../services/favourites.service';
+import { FavouriteGif } from '../interfaces/favourite-gif';
 
 @Component({
   selector: 'app-gif',
@@ -10,20 +11,19 @@ import { FavouritesService } from '../services/favourites.service';
   styleUrls: ['./gif.component.scss'],
   providers: [AuthService]
 })
-export class GifComponent implements OnInit {
-
-  public favourite:boolean = false;
+export class GifComponent implements OnDestroy {
 
   public user$: Observable<any> = this.authSvc.afAuth.user;
+  private subscription: Subscription | undefined;
 
   @Input() gif: Gif | undefined;
+  @Input() favourite: boolean = false;
   @Output() imageLoad: EventEmitter<EventTarget> = new EventEmitter<EventTarget>();
 
   constructor(private favouriteService: FavouritesService, private authSvc: AuthService) { }
 
-  ngOnInit(): void {
-    this.isFavourite();
-    console.log(this.gif);
+  ngOnDestroy(): void {
+      this.subscription?.unsubscribe();
   }
 
   public onImageLoad(event: Event) {
@@ -31,13 +31,14 @@ export class GifComponent implements OnInit {
   }
 
   public saveFav() {
-    this.isFavourite();
-    this.user$.subscribe(async u => {
-      const favourite = {
-        user: u.email,
-        gif: this.gif?.url
+    this.subscription = this.user$.subscribe(async u => {
+      if (u != null) {
+        const favourite: FavouriteGif = {
+          user: u.email,
+          id: this.gif?.id!
+        }
+        this.favouriteService.saveFavourite(favourite);
       }
-      const response = await this.favouriteService.saveFavourite(favourite);
     });
   }
 
@@ -50,9 +51,4 @@ export class GifComponent implements OnInit {
     a.dataset['downloadurl'] = ['application/octet-stream', a.download, a.href].join(':');
     a.click();
   }
-
-  public isFavourite() {
-    this.favourite =  this.favouriteService.isFavourite(this.gif?.url || '');
-  }
-
 }

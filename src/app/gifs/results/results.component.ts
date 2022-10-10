@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { GifsService } from '../services/gifs.service';
 import { FavouritesService } from '../services/favourites.service';
 import { DownloadGifService } from '../services/download-gif.service';
+import { Gif } from '../interfaces/gifs.interface';
 
 @Component({
   selector: 'app-results',
@@ -19,6 +20,10 @@ export class ResultsComponent implements OnInit {
     return this.gifsService.results;
   }
 
+  get favourites() {
+    return this.favouriteService.favourites;
+  }
+
   get loaded() {
     return this.gifsService.loaded;
   }
@@ -27,11 +32,17 @@ export class ResultsComponent implements OnInit {
 
   ngOnInit(): void {
     this.user$.subscribe(u => {
-      this.favouriteService.getFavourites(u.email);
+      if (u != null) {
+        this.favouriteService.getFavourites(u.email);
+      }
     })
   }
 
   public onImageLoad(target: EventTarget) {
     (target as HTMLImageElement).parentElement!.parentElement!.style.display = "flex";
+  }
+
+  public isFavourite(gif: Gif) {
+    return this.favouriteService.isFavourite(gif.id);
   }
 }

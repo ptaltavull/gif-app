@@ -1,6 +1,6 @@
 <ul>
     <li *ngFor="let gif of results" class="card item">
-       <app-gif [gif]="gif" (imageLoad)="onImageLoad($event)"></app-gif>
+       <app-gif [gif]="gif" (imageLoad)="onImageLoad($event)" [favourite]="isFavourite(gif)"></app-gif>
     </li>
 </ul>
 <div *ngIf="!loaded">
