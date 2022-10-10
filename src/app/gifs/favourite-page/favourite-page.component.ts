@@ -17,10 +17,7 @@ export class FavouritePageComponent implements OnInit {
 
   ngOnInit(): void {
     this.user$.subscribe(u => {
-      console.log('getFavourites');//test
-      this.favouriteService.getFavourites(u.email);/* .subscribe(favourites => {
-        console.log(favourites);
-      }) */
+      this.favouriteService.getFavourites(u.email);
     })
   }
 

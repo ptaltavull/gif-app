@@ -31,33 +31,7 @@ export class ResultsComponent implements OnInit {
     })
   }
 
-  public onImageLoad(event: Event) {
-    const target = event.target as HTMLImageElement;
-    target.parentElement!.style.display = "flex";
-  }
-
-  public saveFav(favGif: any) {
-    this.user$.subscribe(async u => {
-      const favourite = {
-        gif: favGif.target.parentNode.parentNode.querySelector("img").src,
-        user: u.email
-      }
-      const response = await this.favouriteService.saveFavourite(favourite);
-      console.log(response);
-    });
-  }
-
-  async downloadGif(gif: any) {
-    let a = document.createElement('a');
-    let response = await fetch(gif.target.parentNode.parentNode.querySelector("img").src);
-    let file = await response.blob();
-    a.download = 'myGif';
-    a.href = window.URL.createObjectURL(file);
-    a.dataset['downloadurl'] = ['application/octet-stream', a.download, a.href].join(':');
-    a.click();
-  }
-
-  public isFavourite(gif: any) {
-    this.favouriteService.isFavourite(gif.target.parentNode.parentNode.querySelector("img").src);
+  public onImageLoad(target: EventTarget) {
+    (target as HTMLImageElement).parentElement!.parentElement!.style.display = "flex";
   }
 }

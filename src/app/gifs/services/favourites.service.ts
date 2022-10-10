@@ -40,11 +40,14 @@ export class FavouritesService {
     if (this.isFavourite(favGif.gif)) {
       this.deleteFavourite(favGif.gif, favGif.user);
     } else {
+      console.log(favGif);
       this.addFavourite(favGif);
     }
   }
 
   public isFavourite(gif: string) {
+    console.log('isFavourite service => ',gif);
+    console.log("favourites => ",this.favourites);
     return this.favourites.findIndex(o => o.gif === gif) != -1;
   }
 }
