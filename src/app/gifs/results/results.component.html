@@ -3,7 +3,7 @@
         <img (load)="onImageLoad($event)" [src]="gif.images.fixed_height.url" [alt]="gif.title" class="animate__animated animate__fadeIn">
         <div class="icons">
             <i class="fa fa-download download-icon" (click)="downloadGif($event)" aria-hidden="true"></i>
-            <i class="fa-regular fa-heart fav-icon" (click)="saveFav($event)" *ngIf="user$ | async as user"></i>
+            <i ngClass="fa-regular fa-heart fav-icon" (onload)="isFavourite($event)" (click)="saveFav($event)" *ngIf="user$ | async as user"></i>
         </div>
     </li>
 </ul>

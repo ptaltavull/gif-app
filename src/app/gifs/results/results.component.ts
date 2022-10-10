@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { GifsService } from '../services/gifs.service';
@@ -11,9 +11,7 @@ import { DownloadGifService } from '../services/download-gif.service';
   styleUrls: ['./results.component.scss'],
   providers: [AuthService]
 })
-export class ResultsComponent {
-
-  
+export class ResultsComponent implements OnInit {
 
   public user$: Observable<any> = this.authSvc.afAuth.user;
 
@@ -27,6 +25,12 @@ export class ResultsComponent {
 
   constructor(private gifsService: GifsService, private authSvc: AuthService, private favouriteService: FavouritesService, private downloadService: DownloadGifService) { }
 
+  ngOnInit(): void {
+    this.user$.subscribe(u => {
+      this.favouriteService.getFavourites(u.email);
+    })
+  }
+
   public onImageLoad(event: Event) {
     const target = event.target as HTMLImageElement;
     target.parentElement!.style.display = "flex";
@@ -38,7 +42,7 @@ export class ResultsComponent {
         gif: favGif.target.parentNode.parentNode.querySelector("img").src,
         user: u.email
       }
-      const response = await this.favouriteService.addFavourite(favourite);
+      const response = await this.favouriteService.saveFavourite(favourite);
       console.log(response);
     });
   }
@@ -51,5 +55,9 @@ export class ResultsComponent {
     a.href = window.URL.createObjectURL(file);
     a.dataset['downloadurl'] = ['application/octet-stream', a.download, a.href].join(':');
     a.click();
+  }
+
+  public isFavourite(gif: any) {
+    this.favouriteService.isFavourite(gif.target.parentNode.parentNode.querySelector("img").src);
   }
 }

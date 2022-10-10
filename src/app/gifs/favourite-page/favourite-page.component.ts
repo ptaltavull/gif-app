@@ -28,8 +28,23 @@ export class FavouritePageComponent implements OnInit {
     return this.favouriteService.favourites;
   }
 
-  async deleteFavourite(favourite: any) {
-    const response = await this.favouriteService.deleteFavourite(favourite);
-    console.log(response);
+  /*  async deleteFavourite(favourite: any) {
+     const response = await this.favouriteService.deleteFavourite(favourite);
+     console.log(response);
+   } */
+
+  /* public deleteFav(gif: any) {
+    this.user$.subscribe(async u => {
+      this.favouriteService.deleteFavourite(gif.target.parentNode.parentNode.querySelector("img").src, u.email);
+    });
+  } */
+  public saveFav(favGif: any) {
+    this.user$.subscribe(u => {
+      const favourite = {
+        gif: favGif.target.parentNode.parentNode.querySelector("img").src,
+        user: u.email
+      }
+      this.favouriteService.saveFavourite(favourite);
+    });
   }
 }

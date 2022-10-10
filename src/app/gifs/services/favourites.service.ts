@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Firestore, collection, addDoc, docData, collectionData } from '@angular/fire/firestore';
 import { deleteDoc, doc, getDocs, query, where } from 'firebase/firestore';
-import { Observable } from 'rxjs';
+//import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,16 +12,14 @@ export class FavouritesService {
 
   constructor(private firestore: Firestore) { }
 
-  addFavourite(favourite: any) {
+  private addFavourite(favourite: any) {
     const favouriteRef = collection(this.firestore, 'favourites');
     return addDoc(favouriteRef, favourite);
   }
 
-  async getFavourites(user: string)/* : Observable<any> */ {
-    console.log('hi -> ',user);//test
+  async getFavourites(user: string) {
+    this.favourites = [];
     const favouriteRef = collection(this.firestore, `favourites`);
-    //return collectionData(favouriteRef, {idField: 'id'}) as Observable<any>;
-    //test
     const q = query(favouriteRef, where("user", "==", user));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
@@ -29,9 +27,24 @@ export class FavouritesService {
     });
   }
 
-  deleteFavourite(favourite: any) {
-    const favouriteRef = doc(this.firestore, `favourites/${favourite.id}`);
-    return deleteDoc(favouriteRef);
+  private async deleteFavourite(favourite: any, user: string) {
+    const favouriteRef = collection(this.firestore, `favourites`);
+    const q = query(favouriteRef, where("user", "==", user), where("gif", "==", favourite));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach(d => deleteDoc(d.ref));
+    const favIndex = this.favourites.findIndex(o => o.gif === favourite);
+    this.favourites.splice(favIndex, 1);
   }
 
+  public saveFavourite(favGif: any) {
+    if (this.isFavourite(favGif.gif)) {
+      this.deleteFavourite(favGif.gif, favGif.user);
+    } else {
+      this.addFavourite(favGif);
+    }
+  }
+
+  public isFavourite(gif: string) {
+    return this.favourites.findIndex(o => o.gif === gif) != -1;
+  }
 }

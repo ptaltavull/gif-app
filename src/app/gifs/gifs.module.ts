@@ -4,6 +4,7 @@ import { GifsPageComponent } from './gifs-page/gifs-page.component';
 import { ResultsComponent } from './results/results.component';
 import { FavouritePageComponent } from './favourite-page/favourite-page.component';
 import { SharedModule } from '../shared/shared.module';
+import { GifComponent } from './gif/gif.component';
 
 
 
@@ -11,7 +12,8 @@ import { SharedModule } from '../shared/shared.module';
   declarations: [
     GifsPageComponent,
     ResultsComponent,
-    FavouritePageComponent
+    FavouritePageComponent,
+    GifComponent
   ],
   exports: [
     GifsPageComponent,
